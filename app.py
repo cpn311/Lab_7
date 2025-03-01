@@ -3,9 +3,11 @@ import numpy as np
 import pickle
 import streamlit as st
 
+# Title of the app
 st.title("My Streamlit App")
 st.write("Welcome to my Streamlit app!")
 
+# Import necessary libraries
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestRegressor
@@ -14,6 +16,10 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 # Load the dataset
 file_path = "AmesHousing.xlsx"  # Update this with your file path
 df = pd.read_excel(file_path, sheet_name="AmesHousing")
+
+# Display the first few rows of the dataset
+st.write("Dataset Preview:")
+st.dataframe(df.head())  # Display the first few rows of the dataset
 
 # Drop non-essential columns
 df = df.drop(columns=['Order', 'PID'])
@@ -44,6 +50,22 @@ y_pred = model.predict(X_test)
 mae = mean_absolute_error(y_test, y_pred)
 rmse = mean_squared_error(y_test, y_pred) ** 0.5  # Manually take the square root
 
-print(f"Mean Absolute Error: {mae}")
-print(f"Root Mean Squared Error: {rmse}")
+# Display the evaluation results
+st.write(f"Mean Absolute Error: {mae}")
+st.write(f"Root Mean Squared Error: {rmse}")
+
+# Optionally, you can show a feature importance plot
+import matplotlib.pyplot as plt
+
+# Plot feature importances
+feature_importances = model.feature_importances_
+sorted_idx = np.argsort(feature_importances)[::-1]
+top_features = X.columns[sorted_idx][:10]  # Display top 10 features
+top_importances = feature_importances[sorted_idx][:10]
+
+fig, ax = plt.subplots()
+ax.barh(top_features, top_importances)
+ax.set_xlabel("Feature Importance")
+ax.set_title("Top 10 Feature Importances")
+st.pyplot(fig)
 
