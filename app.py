@@ -1,7 +1,10 @@
-import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
+import streamlit as st
+
+st.title("My Streamlit App")
+st.write("Welcome to my Streamlit app!")
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
