@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import pickle
 import streamlit as st
-import matplotlib.pyplot as plt
+
 # Title of the app
 st.title("My Streamlit App")
 st.write("Welcome to my Streamlit app!")
